@@ -1,0 +1,32 @@
+<view class="page"
+  ><view class="eyebrow">MAKE A WISH / 从向往开始</view
+  ><view class="title">你的退休愿望是？</view
+  ><view class="notice" wx:if="{{loaded &amp;&amp; !remaining}}"
+    >今日已写下3个愿望，明天再来</view
+  ><view class="field">
+    <textarea
+      maxlength="80"
+      value="{{content}}"
+      bindinput="input"
+      placeholder="退休后想在大理租个小院，种花养猫，过慢慢的日子……"
+    /><view class="counter">{{content.length}}/80 · 至少10字</view></view
+  ><view class="field"
+    ><label>关联维度（选填）</label
+    ><view
+      wx:for="{{dimensions}}"
+      wx:key="id"
+      class="pill {{dimension===item.id?'active':''}}"
+      data-id="{{item.id}}"
+      bindtap="dimension"
+      >{{item.icon}} {{item.name}}</view
+    ></view
+  ><view class="muted">愿望会公开展示 · 每天最多3条</view
+  ><button
+    class="primary"
+    bindtap="save"
+    loading="{{saving}}"
+    disabled="{{saving || !loaded || !remaining || content.length&lt;10}}"
+  >
+    写下愿望
+  </button></view
+>

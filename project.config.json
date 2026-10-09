@@ -1,0 +1,13 @@
+{
+  "appid": "wx6e5527ee2c4beffa",
+  "projectname": "retirement-blueprint",
+  "compileType": "miniprogram",
+  "miniprogramRoot": "miniprogram/",
+  "libVersion": "latest",
+  "setting": {
+    "es6": true,
+    "enhance": true,
+    "minified": true,
+    "urlCheck": true
+  }
+}

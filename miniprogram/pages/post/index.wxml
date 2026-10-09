@@ -1,0 +1,91 @@
+<view class="page"
+  ><view wx:if="{{loading}}" class="skeleton" /><view
+    wx:if="{{error}}"
+    class="notice"
+    bindtap="reload"
+    >{{error}} · 点击重试</view
+  ><view wx:if="{{post &amp;&amp; !error}}"
+    ><view class="row"
+      ><view bindtap="author" class="row"
+        ><image
+          wx:if="{{post.author.avatar_url}}"
+          class="avatar"
+          src="{{post.author.avatar_url}}"
+        /><view
+          ><view>{{post.author.nickname}}</view
+          ><view class="muted">{{post.author.city}} · {{post.date}}</view></view
+        ></view
+      ><text bindtap="menu">···</text></view
+    ><swiper
+      wx:if="{{post.imageUrls.length}}"
+      style="height: 480rpx; margin: 30rpx 0"
+      indicator-dots="true"
+      ><swiper-item wx:for="{{post.imageUrls}}" wx:key="*this"
+        ><image
+          src="{{item}}"
+          data-url="{{item}}"
+          bindtap="preview"
+          mode="aspectFill"
+          style="
+            width: 100%;
+            height: 100%;
+            border-radius: 24rpx;
+          " /></swiper-item></swiper
+    ><view class="card"
+      ><view class="body">{{post.content}}</view
+      ><view
+        ><text class="pill" wx:for="{{post.dimensionLabels}}" wx:key="*this"
+          >{{item}}</text
+        ><text class="pill" wx:for="{{post.custom_tags}}" wx:key="*this"
+          >#{{item}}</text
+        ></view
+      ><view wx:if="{{post.expense_note}}" class="muted"
+        >花费参考：{{post.expense_note}}</view
+      ><view class="actions row"
+        ><text bindtap="like">{{post.liked?'♥':'♡'}} {{post.like_count}}</text
+        ><text class="link" bindtap="collect"
+          >{{post.collected_dimension?'✓ 已加入':'＋ 加入蓝图'}}</text
+        ><button size="mini" open-type="share" class="secondary">
+          分享
+        </button></view
+      ></view
+    ><view class="section">评论 {{post.comment_count}}</view
+    ><view wx:for="{{comments}}" wx:key="id" class="card"
+      ><view class="row"
+        ><text>@{{item.author.nickname}}</text
+        ><text class="muted">{{item.date}}</text></view
+      ><view wx:if="{{item.parent_id}}" class="muted">↳ 回复评论</view
+      ><view class="body">{{item.content}}</view
+      ><view class="row actions"
+        ><text wx:if="{{!item.parent_id}}" data-id="{{item.id}}" bindtap="reply"
+          >回复</text
+        ><text data-id="{{item.id}}" bindtap="commentLike"
+          >{{item.liked?'♥':'♡'}} {{item.like_count}}</text
+        ></view
+      ></view
+    ><view class="empty" wx:if="{{!comments.length}}">来聊聊你向往的日子</view
+    ><view
+      class="link"
+      wx:if="{{!showAll &amp;&amp; post.comment_count>comments.length}}"
+      bindtap="allComments"
+      >查看更多评论 →</view
+    ><view class="card"
+      ><view wx:if="{{reply}}" class="notice" bindtap="clearReply"
+        >回复 @{{reply.author.nickname}} · 点击取消</view
+      ><textarea
+        maxlength="200"
+        value="{{input}}"
+        bindinput="input"
+        placeholder="说点什么……"
+      /><view class="counter">{{input.length}}/200</view
+      ><button
+        class="primary"
+        bindtap="send"
+        loading="{{sending}}"
+        disabled="{{sending || !input.length}}"
+      >
+        发送评论
+      </button></view
+    ></view
+  ></view
+>

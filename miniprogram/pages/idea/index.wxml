@@ -1,0 +1,40 @@
+<view class="page"
+  ><view class="eyebrow">ONE SMALL IDEA / 为未来留个位置</view
+  ><view class="title">{{id ? '编辑这个想法' : '写下一个新想法'}}</view
+  ><view class="field"
+    ><label>放进哪个维度？</label
+    ><picker
+      range="{{dimensions}}"
+      range-key="name"
+      value="{{dimIndex}}"
+      bindchange="pick"
+      ><view class="picker"
+        >{{dimensions[dimIndex].icon}} {{dimensions[dimIndex].name}}</view
+      ></picker
+    ></view
+  ><view class="field"
+    ><label>你的想法</label
+    ><textarea
+      value="{{content}}"
+      maxlength="200"
+      data-key="content"
+      bindinput="input"
+      placeholder="想住在海边，清晨散步，下午读书……"
+    /><view class="counter">{{content.length}}/200</view></view
+  ><view class="field"
+    ><label>标签（可选，空格分隔，最多5个，每个8字）</label
+    ><input
+      value="{{tags}}"
+      maxlength="44"
+      data-key="tags"
+      bindinput="input"
+      placeholder="海边 慢生活" /></view
+  ><button
+    class="primary"
+    bindtap="save"
+    loading="{{saving}}"
+    disabled="{{saving || !content.length}}"
+  >
+    保存到我的蓝图
+  </button></view
+>

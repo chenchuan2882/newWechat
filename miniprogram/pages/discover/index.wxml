@@ -1,0 +1,38 @@
+<view class="page"
+  ><view class="eyebrow">生活有很多种可能</view
+  ><view class="row"
+    ><view class="title">发现，下一种日子</view
+    ><text class="link" bindtap="publish">＋ 分享</text></view
+  ><scroll-view scroll-x="true" class="tabs"
+    ><view class="pill {{!dimension?'active':''}}" data-id="" bindtap="filter"
+      >全部</view
+    ><view
+      wx:for="{{dimensions}}"
+      wx:key="id"
+      class="pill {{dimension===item.id?'active':''}}"
+      data-id="{{item.id}}"
+      bindtap="filter"
+      >{{item.icon}} {{item.name}}</view
+    ></scroll-view
+  ><post-card
+    wx:for="{{posts}}"
+    wx:key="id"
+    post="{{item}}"
+    bind:open="openPost"
+    bind:like="likePost"
+    bind:collect="collectPost"
+    bind:author="openAuthor"
+  /><view wx:if="{{loading}}" class="skeleton" /><view
+    wx:if="{{error}}"
+    class="notice"
+    bindtap="load"
+    >{{error}} · 点击重试</view
+  ><view
+    wx:if="{{!loading &amp;&amp; !posts.length &amp;&amp; !error}}"
+    class="empty"
+    >🌱 还没有内容<view>成为第一个分享的人吧</view
+    ><button class="secondary" bindtap="publish">去发布</button></view
+  ><view wx:if="{{!hasMore &amp;&amp; posts.length}}" class="empty"
+    >已经到底啦 ～</view
+  ></view
+>

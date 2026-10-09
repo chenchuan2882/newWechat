@@ -1,0 +1,14 @@
+<view class="page"
+  ><view class="title">让提醒恰到好处</view
+  ><view class="subtitle">这些设置控制应用内的提醒和互动消息。</view
+  ><view class="card"
+    ><view wx:for="{{items}}" wx:key="id" class="item row"
+      ><text>{{item.name}}</text
+      ><switch
+        color="#285548"
+        checked="{{item.enabled}}"
+        disabled="{{saving}}"
+        data-id="{{item.id}}"
+        bindchange="change" /></view></view
+  ><view class="muted">可随时更改，关闭后不会生成新的对应互动提醒。</view></view
+>

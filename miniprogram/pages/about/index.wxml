@@ -1,0 +1,23 @@
+<view class="page"
+  ><view class="eyebrow">凡事预则立 / 人生后半程</view
+  ><view class="title">把喜欢的生活<text> </text>变成自己的蓝图</view
+  ><view class="card"
+    ><view class="section">关于我们</view
+    ><view
+      >这里帮助你记录退休生活的向往，通过真实生活分享获得灵感。生活与财务内容仅供个人记录和交流，不构成投资、医疗或法律建议。</view
+    ></view
+  ><view class="card"
+    ><view class="section">隐私说明</view
+    ><view
+      >为识别账号，服务端使用微信登录标识。你填写的昵称、头像、城市和简介可随公开分享展示；出生年份与月份用于退休时间计算和年度回顾，公开主页不会显示具体出生信息。</view
+    ><view style="margin-top: 20rpx"
+      >你的退休蓝图完全私有。生活分享、图片、评论、愿望及互动为公开社区内容。选择图片时仅处理你主动选择的图片。数据存储在本项目的微信云托管数据库中。</view
+    ><view style="margin-top: 20rpx"
+      >蓝图缓存用于离线阅读，退出登录时清除当前账号缓存。微信登录凭证由后端管理，密码和服务密钥不会保存在小程序中。</view
+    ><view style="margin-top: 20rpx"
+      >如需咨询、访问或删除个人数据，请通过“我的 → 意见反馈”联系运营者。</view
+    ></view
+  ><view class="muted"
+    >上线前需由运营者在微信公众平台配置完整隐私保护指引、主体名称和联系方式。</view
+  ></view
+>

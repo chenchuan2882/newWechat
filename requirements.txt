@@ -1,10 +1,7 @@
-click==8.0.3
-Flask==2.0.2
-Flask-SQLAlchemy==2.5.1
-greenlet==1.1.2
-itsdangerous==2.0.1
-Jinja2==3.0.3
-MarkupSafe==2.0.1
-PyMySQL==1.0.2
-SQLAlchemy==1.4.29
-Werkzeug==2.0.2
+Flask==3.0.3
+Flask-SQLAlchemy==3.1.1
+SQLAlchemy==2.0.36
+PyMySQL==1.1.1
+requests==2.32.3
+Pillow==11.0.0
+gunicorn==23.0.0

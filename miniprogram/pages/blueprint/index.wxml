@@ -1,0 +1,57 @@
+<view class="page"
+  ><view class="eyebrow">PRIVATE / 只属于你的生活规划</view
+  ><view class="row"
+    ><view class="title">我的退休蓝图</view
+    ><text class="link" bindtap="add">＋ 添加</text></view
+  ><view class="card"
+    ><view class="row"
+      ><text>慢慢把未来填满</text
+      ><text class="muted">{{complete}}/5 维度</text></view
+    ><view class="progress"
+      ><view class="progress-fill" style="width:{{complete*20}}%" /></view
+    ><view class="muted">共 {{total}} 条想法 · 蓝图默认完全私有</view></view
+  ><view class="grid"
+    ><view
+      wx:for="{{dimensions}}"
+      wx:key="id"
+      class="card"
+      data-id="{{item.id}}"
+      bindtap="filter"
+      style="border-color:{{dimension===item.id?'#285548':'#ebece2'}}"
+      ><view class="icon">{{item.icon}}</view><view>{{item.name}}</view
+      ><view class="muted">{{counts[item.id] || 0}} 条想法</view></view
+    ></view
+  ><view class="row section"
+    ><text>{{dimension ? '这个维度的想法' : '全部想法'}}</text
+    ><text wx:if="{{dimension}}" class="link" data-id="" bindtap="filter"
+      >查看全部</text
+    ></view
+  ><view wx:if="{{error}}" class="notice" bindtap="reload">{{error}}</view
+  ><view wx:for="{{items}}" wx:key="id" class="card"
+    ><view class="pill">{{item.dimensionName}}</view
+    ><view class="body">{{item.content}}</view
+    ><view class="muted" wx:if="{{item.source_type==='collected'}}"
+      >{{item.source_deleted?'来自已删除内容':'来自
+      @'+item.source_author}}</view
+    ><view
+      ><text class="pill" wx:for="{{item.tags}}" wx:key="*this"
+        >#{{item}}</text
+      ></view
+    ><view class="row actions"
+      ><text class="muted">{{item.date}}</text
+      ><view class="row" wx:if="{{!offline}}"
+        ><text class="link" data-id="{{item.id}}" bindtap="edit">编辑</text
+        ><text class="danger" data-id="{{item.id}}" bindtap="remove"
+          >删除</text
+        ></view
+      ></view
+    ></view
+  ><view wx:if="{{loading}}" class="skeleton" /><view
+    wx:if="{{!loading &amp;&amp; !items.length &amp;&amp; !error}}"
+    class="empty"
+    >🌱 还没有想法<button class="primary" bindtap="add">自己写一条</button
+    ><button class="secondary" bindtap="discover">去发现找灵感</button></view
+  ><view wx:if="{{items.length &amp;&amp; !hasMore}}" class="empty"
+    >已经到底啦 ～</view
+  ></view
+>

@@ -1,0 +1,52 @@
+<view class="page"
+  ><view wx:if="{{loading}}" class="skeleton" /><view
+    wx:if="{{error}}"
+    class="notice"
+    bindtap="reload"
+    >{{error}}</view
+  ><view class="card"
+    ><image
+      wx:if="{{profile.avatar_url}}"
+      class="avatar"
+      src="{{profile.avatar_url}}"
+    /><view class="title">{{profile.nickname}}</view
+    ><view class="muted">{{profile.city}}</view><view>{{profile.bio}}</view
+    ><view class="muted"
+      >分享 {{profile.post_count || 0}} · 收到收藏
+      {{profile.received_collections || 0}}</view
+    ><view wx:if="{{profile.retirement}}" class="muted"
+      >{{profile.retirement.is_retired?'退休生活':'距离退休'}}
+      {{profile.retirement.years}} 年</view
+    ></view
+  ><view class="row"
+    ><view
+      class="pill {{tab==='posts'?'active':''}}"
+      data-id="posts"
+      bindtap="tab"
+      >生活分享</view
+    ><view
+      class="pill {{tab==='wishes'?'active':''}}"
+      data-id="wishes"
+      bindtap="tab"
+      >退休愿望</view
+    ></view
+  ><view wx:if="{{tab==='posts'}}"
+    ><post-card
+      wx:for="{{posts}}"
+      wx:key="id"
+      post="{{item}}"
+      bind:open="openPost"
+      bind:like="likePost"
+      bind:collect="collectPost"
+      bind:author="openAuthor" /></view
+  ><view wx:else=""
+    ><view wx:for="{{wishes}}" wx:key="id" class="card"
+      ><view class="body">{{item.content}}</view
+      ><view class="muted"
+        >{{item.dimensionName}} · {{item.like_count}} 人也想</view
+      ></view
+    ></view
+  ><view wx:if="{{!loading}}" class="muted"
+    >这里只展示公开内容，私人蓝图不会展示。</view
+  ></view
+>

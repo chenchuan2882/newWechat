@@ -1,24 +1,42 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-import pymysql
-import config
 
-# 因MySQLDB不支持Python3，使用pymysql扩展库代替MySQLDB库
-pymysql.install_as_MySQLdb()
+db = SQLAlchemy()
 
-# 初始化web应用
-app = Flask(__name__, instance_relative_config=True)
-app.config['DEBUG'] = config.DEBUG
 
-# 设定数据库链接
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://{}:{}@{}/flask_demo'.format(config.username, config.password,
-                                                                             config.db_address)
+def create_app(overrides=None):
+    app = Flask(__name__, instance_relative_config=True)
+    app.config.from_object("config")
+    if overrides:
+        app.config.update(overrides)
+    db.init_app(app)
+    from wxcloudrun import model, retirement_models
+    from wxcloudrun.retirement import api
 
-# 初始化DB操作对象
-db = SQLAlchemy(app)
+    app.register_blueprint(api)
 
-# 加载控制器
+    @app.cli.command("init-db")
+    def init_db():
+        """Create missing tables; does not drop existing counter data."""
+        db.create_all()
+        print("Database tables created.")
+
+    @app.cli.command("refresh-hot")
+    def refresh_hot():
+        from wxcloudrun.retirement import hot_ids
+
+        hot_ids(force=True)
+        print("Hourly wish ranking refreshed.")
+
+    @app.cli.command("dispatch-reminders")
+    def dispatch_reminders():
+        from wxcloudrun.retirement import schedule_reminders, dispatch_notifications
+
+        schedule_reminders()
+        print(dispatch_notifications())
+
+    return app
+
+
+app = create_app()
 from wxcloudrun import views
-
-# 加载配置
-app.config.from_object('config')

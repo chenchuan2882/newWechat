@@ -1,124 +1,60 @@
-# wxcloudrun-flask
-[![GitHub license](https://img.shields.io/github/license/WeixinCloud/wxcloudrun-express)](https://github.com/WeixinCloud/wxcloudrun-express)
-![GitHub package.json dependency version (prod)](https://img.shields.io/badge/python-3.7.3-green)
+# 凡事预则立 · 退休生活规划小程序
 
-微信云托管 python Flask 框架模版，实现简单的计数器读写接口，使用云托管 MySQL 读写、记录计数值。
+基于用户提供的 [PRD v1](docs/PRD-v1.txt) 实现；本版本不包含 AI。原微信云托管 Flask 计数器服务保留，新功能位于 `/api`，原生小程序位于 `miniprogram/`。
 
-![](https://qcloudimg.tencent-cloud.cn/raw/be22992d297d1b9a1a5365e606276781.png)
+## 已实现
 
+- 首页：按时段问候、按月退休倒计时、已退休展示、蓝图完整度、最近48小时生活分享推荐。
+- 用户：微信登录、三步引导、资料编辑、可选出生月份、头像上传、游客只读浏览、退出登录清除私有缓存。
+- 蓝图：五维私有记录、编辑删除、标签、每页50条、收藏去重、来源删除后保留快照、离线缓存。
+- 发现：时间倒序、维度筛选、每页20条、图片分享、文字/图片审核、编辑删除、作者主页、点赞、评论/一级回复、评论点赞、微信分享。
+- 愿望：热门/最新/维度筛选、每天3条北京时间额度、删除不恢复额度、幂等+1、最近5位互动用户、加入蓝图。
+- 社区：不同用户累计5次举报自动下线、作者消息提醒、我的发布/收藏/愿望、应用内消息、通知开关。
+- 提醒：持久化里程碑确认、生日月年度回顾、小时热门缓存、可配置微信订阅消息发送及受保护的定时任务入口。
 
-## 快速开始
-前往 [微信云托管快速开始页面](https://developers.weixin.qq.com/miniprogram/dev/wxcloudrun/src/basic/guide.html)，选择相应语言的模板，根据引导完成部署。
+## 项目结构
 
-## 本地调试
-下载代码在本地调试，请参考[微信云托管本地调试指南](https://developers.weixin.qq.com/miniprogram/dev/wxcloudrun/src/guide/debug/)
-
-## 实时开发
-代码变动时，不需要重新构建和启动容器，即可查看变动后的效果。请参考[微信云托管实时开发指南](https://developers.weixin.qq.com/miniprogram/dev/wxcloudrun/src/guide/debug/dev.html)
-
-## Dockerfile最佳实践
-请参考[如何提高项目构建效率](https://developers.weixin.qq.com/miniprogram/dev/wxcloudrun/src/scene/build/speed.html)
-
-## 目录结构说明
-
-~~~
-.
-├── Dockerfile dockerfile       dockerfile
-├── README.md README.md         README.md文件
-├── container.config.json       模板部署「服务设置」初始化配置（二开请忽略）
-├── requirements.txt            依赖包文件
-├── config.py                   项目的总配置文件  里面包含数据库 web应用 日志等各种配置
-├── run.py                      flask项目管理文件 与项目进行交互的命令行工具集的入口
-└── wxcloudrun                  app目录
-    ├── __init__.py             python项目必带  模块化思想
-    ├── dao.py                  数据库访问模块
-    ├── model.py                数据库对应的模型
-    ├── response.py             响应结构构造
-    ├── templates               模版目录,包含主页index.html文件
-    └── views.py                执行响应的代码所在模块  代码逻辑处理主要地点  项目大部分代码在此编写
-~~~
-
-
-
-## 服务 API 文档
-
-### `GET /api/count`
-
-获取当前计数
-
-#### 请求参数
-
-无
-
-#### 响应结果
-
-- `code`：错误码
-- `data`：当前计数值
-
-##### 响应结果示例
-
-```json
-{
-  "code": 0,
-  "data": 42
-}
+```text
+miniprogram/             微信原生 WXML / WXSS / JS，15个页面
+wxcloudrun/retirement.py 业务接口与输入校验
+wxcloudrun/retirement_models.py MySQL 数据模型
+wxcloudrun/wechat.py     微信登录与内容安全接口
+scripts/                小程序静态检查
+ tests/                 API 集成测试（SQLite、模拟微信接口）
+ docs/                  原始PRD、部署与验收说明
 ```
 
-#### 调用示例
+## 本地后端
 
-```
-curl https://<云托管服务域名>/api/count
-```
-
-
-
-### `POST /api/count`
-
-更新计数，自增或者清零
-
-#### 请求参数
-
-- `action`：`string` 类型，枚举值
-  - 等于 `"inc"` 时，表示计数加一
-  - 等于 `"clear"` 时，表示计数重置（清零）
-
-##### 请求参数示例
-
-```
-{
-  "action": "inc"
-}
+```bash
+python3 -m venv .venv
+.venv/bin/pip install -r requirements.txt pytest
+# .env 不会自动加载，请通过安全的运行环境注入变量。
+export DATABASE_URL='sqlite:///development.db'
+export SESSION_SECRET='<自行生成随机值>'
+export WECHAT_APPSECRET='<从微信后台获取>'
+.venv/bin/python -m flask --app wxcloudrun init-db
+.venv/bin/python -m flask --app wxcloudrun run --port 8080
 ```
 
-#### 响应结果
+SQLite 用于本地开发与测试；生产使用现有 MySQL。真实微信登录和内容审核仍需有效 AppSecret，项目没有开发后门、默认演示账号或绕过审核开关。
 
-- `code`：错误码
-- `data`：当前计数值
+## 微信开发者工具
 
-##### 响应结果示例
+导入**仓库根目录**，读取 `project.config.json`，AppID 已设为 `wx6e5527ee2c4beffa`，代码目录是 `miniprogram/`。
 
-```json
-{
-  "code": 0,
-  "data": 42
-}
+前端使用 `wx.cloud.callContainer`，环境 `prod-d5gjoz9hoc91797d2`、服务 `flask-0zs5`。这不是网页，云托管推送仅更新后端；小程序前端仍需在开发者工具上传、体验版真机验证和微信审核发布。
+
+## 部署
+
+详见 [部署说明](docs/DEPLOYMENT.md)。容器启动会创建缺失表，不会删表或重建原计数器表。不要把密码、AppSecret、会话密钥或 `.env` 提交到 Git。
+
+## 检查
+
+```bash
+.venv/bin/python -m pytest -q
+node scripts/check-miniprogram.js
+python3 scripts/check-wxml.py
 ```
 
-#### 调用示例
-
-```
-curl -X POST -H 'content-type: application/json' -d '{"action": "inc"}' https://<云托管服务域名>/api/count
-```
-
-## 使用注意
-如果不是通过微信云托管控制台部署模板代码，而是自行复制/下载模板代码后，手动新建一个服务并部署，需要在「服务设置」中补全以下环境变量，才可正常使用，否则会引发无法连接数据库，进而导致部署失败。
-- MYSQL_ADDRESS
-- MYSQL_PASSWORD
-- MYSQL_USERNAME
-以上三个变量的值请按实际情况填写。如果使用云托管内MySQL，可以在控制台MySQL页面获取相关信息。
-
-
-
-## License
-
-[MIT](./LICENSE)
+测试使用模拟微信响应和 SQLite，不能证明微信审核接口、真实 MySQL、前端真机表现或云托管流水线已运行成功。性能阈值需在真实环境测量。

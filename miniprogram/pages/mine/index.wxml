@@ -1,0 +1,44 @@
+<view class="page"
+  ><view class="eyebrow">我的人生后半程</view
+  ><view class="card"
+    ><view class="row"
+      ><image wx:if="{{avatar}}" class="avatar" src="{{avatar}}" /><view
+        wx:else=""
+        class="icon"
+        >🌿</view
+      ><view style="flex: 1"
+        ><view class="section">{{profile.nickname || '从一个想法开始'}}</view
+        ><view class="muted"
+          >{{profile.retirement ? (profile.retirement.is_retired ? '退休生活 ' :
+          '距退休
+          ')+profile.retirement.years+'年'+profile.retirement.months+'个月' :
+          '把憧憬变成你的退休蓝图'}}</view
+        ></view
+      ></view
+    ><button class="primary" bindtap="edit">
+      {{profile.nickname?'编辑资料':'登录并开始规划'}}
+    </button></view
+  ><view class="card"
+    ><view class="item row" bindtap="blueprint"
+      ><text>📋 我的蓝图</text
+      ><text class="muted">{{info.total || 0}} 条 →</text></view
+    ><view class="item row" data-kind="posts" bindtap="records"
+      ><text>📝 我的发布</text><text>→</text></view
+    ><view class="item row" data-kind="collected" bindtap="records"
+      ><text>🔖 我的收藏</text><text>→</text></view
+    ><view class="item row" data-kind="wishes" bindtap="records"
+      ><text>✨ 我的愿望</text><text>→</text></view
+    ><view class="progress"
+      ><view
+        class="progress-fill"
+        style="width:{{(info.complete || 0)*20}}%" /></view
+    ><view class="muted">{{info.complete || 0}}/5 个维度已填写</view></view
+  ><view class="card"
+    ><view class="item" bindtap="settings">消息通知设置 →</view
+    ><view class="item" bindtap="about">隐私说明与关于我们 →</view
+    ><button open-type="feedback" class="secondary">意见反馈</button
+    ><view wx:if="{{profile}}" class="item danger" bindtap="logout"
+      >退出登录</view
+    ></view
+  ></view
+>

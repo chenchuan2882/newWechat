@@ -1,0 +1,5 @@
+{
+  "navigationBarTitleText": "生活片段",
+  "enablePullDownRefresh": true,
+  "usingComponents": { "post-card": "/components/post-card/index" }
+}

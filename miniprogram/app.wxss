@@ -1,0 +1,224 @@
+page {
+  background: #f7f5ef;
+  color: #243b35;
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif;
+  font-size: 28rpx;
+  line-height: 1.65;
+}
+.page {
+  padding: 36rpx 32rpx 70rpx;
+}
+.eyebrow {
+  color: #788a80;
+  letter-spacing: 5rpx;
+  font-size: 22rpx;
+}
+.title {
+  font-size: 48rpx;
+  font-weight: 600;
+  line-height: 1.3;
+  margin: 12rpx 0 20rpx;
+}
+.subtitle,
+.muted {
+  color: #839087;
+  font-size: 25rpx;
+}
+.card {
+  background: #fffefa;
+  border: 1rpx solid #ebece2;
+  border-radius: 28rpx;
+  padding: 30rpx;
+  margin: 24rpx 0;
+  box-shadow: 0 8rpx 22rpx #223c3405;
+}
+.hero {
+  background: #285548;
+  color: #fffefa;
+  padding: 42rpx 34rpx;
+  border-radius: 32rpx;
+  margin: 30rpx 0;
+}
+.hero .muted {
+  color: #d0dfd6;
+}
+.big {
+  font-size: 78rpx;
+  font-weight: 600;
+  letter-spacing: -3rpx;
+  margin: 22rpx 0;
+}
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20rpx;
+}
+.wrap {
+  flex-wrap: wrap;
+}
+.section {
+  font-size: 34rpx;
+  font-weight: 600;
+  margin: 36rpx 0 16rpx;
+}
+.pill {
+  display: inline-block;
+  background: #eef2e9;
+  color: #4f6b5b;
+  border-radius: 99rpx;
+  padding: 10rpx 22rpx;
+  margin: 8rpx 8rpx 8rpx 0;
+  font-size: 24rpx;
+}
+.pill.active {
+  background: #285548;
+  color: #fff;
+}
+.tabs {
+  white-space: nowrap;
+  width: 100%;
+  margin: 20rpx 0;
+}
+.tabs .pill {
+  display: inline-block;
+}
+.primary {
+  background: #285548 !important;
+  color: #fff !important;
+  border-radius: 99rpx !important;
+  font-size: 28rpx !important;
+  margin: 22rpx 0;
+}
+.secondary {
+  background: #edf1e7 !important;
+  color: #285548 !important;
+  border-radius: 99rpx !important;
+  font-size: 26rpx !important;
+}
+.link {
+  color: #396c56;
+  font-size: 25rpx;
+}
+.danger {
+  color: #b15c4b;
+}
+button:after {
+  border: 0;
+}
+button[disabled] {
+  opacity: 0.45;
+}
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20rpx;
+}
+.grid .card {
+  margin: 0;
+}
+.icon {
+  font-size: 42rpx;
+}
+.field {
+  margin: 28rpx 0;
+}
+.field label {
+  display: block;
+  margin-bottom: 14rpx;
+  color: #536a5e;
+}
+input,
+textarea,
+.picker {
+  background: #f0f2ea;
+  border-radius: 18rpx;
+  padding: 22rpx;
+  box-sizing: border-box;
+  width: 100%;
+  font-size: 28rpx;
+}
+textarea {
+  min-height: 240rpx;
+}
+.counter {
+  text-align: right;
+  color: #8a978e;
+  font-size: 23rpx;
+}
+.empty {
+  text-align: center;
+  color: #829187;
+  padding: 70rpx 20rpx;
+}
+.avatar {
+  width: 78rpx;
+  height: 78rpx;
+  border-radius: 50%;
+  background: #e5ecdf;
+  flex-shrink: 0;
+}
+.thumb {
+  width: 150rpx;
+  height: 150rpx;
+  border-radius: 16rpx;
+}
+.actions {
+  margin-top: 20rpx;
+  border-top: 1rpx solid #edf0e7;
+  padding-top: 20rpx;
+  color: #6c8274;
+  font-size: 24rpx;
+}
+.progress {
+  height: 12rpx;
+  background: #e9eedf;
+  border-radius: 20rpx;
+  margin: 18rpx 0;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: #819961;
+  border-radius: 20rpx;
+}
+.skeleton {
+  height: 240rpx;
+  border-radius: 28rpx;
+  background: linear-gradient(100deg, #e8ece3, #f4f5ee, #e8ece3);
+  background-size: 200% 100%;
+  animation: pulse 1.2s infinite;
+  margin: 24rpx 0;
+}
+@keyframes pulse {
+  to {
+    background-position: -200% 0;
+  }
+}
+.notice {
+  background: #faf0d9;
+  color: #8b7348;
+  border-radius: 16rpx;
+  padding: 20rpx;
+  margin: 20rpx 0;
+}
+.body {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.mini {
+  font-size: 22rpx;
+}
+.item {
+  padding: 22rpx 0;
+  border-bottom: 1rpx solid #edf0e7;
+}
+.badge {
+  background: #e8eddf;
+  padding: 8rpx 18rpx;
+  border-radius: 12rpx;
+  font-size: 22rpx;
+}
+.hero .link {
+  color: #dce7cf;
+}

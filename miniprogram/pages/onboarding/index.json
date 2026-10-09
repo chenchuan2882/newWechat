@@ -1,0 +1,5 @@
+{
+  "navigationBarTitleText": "开始规划",
+  "enablePullDownRefresh": false,
+  "usingComponents": { "post-card": "/components/post-card/index" }
+}

@@ -1,0 +1,52 @@
+{
+  "pages": [
+    "pages/home/index",
+    "pages/discover/index",
+    "pages/wishes/index",
+    "pages/mine/index",
+    "pages/onboarding/index",
+    "pages/blueprint/index",
+    "pages/idea/index",
+    "pages/post/index",
+    "pages/publish/index",
+    "pages/wish-edit/index",
+    "pages/author/index",
+    "pages/records/index",
+    "pages/settings/index",
+    "pages/notifications/index",
+    "pages/about/index"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#f7f5ef",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#f7f5ef",
+    "navigationBarTitleText": "凡事预则立"
+  },
+  "tabBar": {
+    "color": "#899487",
+    "selectedColor": "#285548",
+    "backgroundColor": "#fffefa",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/home/index",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/discover/index",
+        "text": "发现"
+      },
+      {
+        "pagePath": "pages/wishes/index",
+        "text": "许愿"
+      },
+      {
+        "pagePath": "pages/mine/index",
+        "text": "我的"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "permission": {}
+}

@@ -1,0 +1,68 @@
+<view class="page"
+  ><view class="row"
+    ><view class="eyebrow">为人生后半程，留一点期待</view
+    ><text class="link" bindtap="notifications">消息</text></view
+  ><view class="title"
+    >{{greeting}}，{{info.profile.nickname || '未来的你'}} 🌿</view
+  ><view class="subtitle">把喜欢的日子，慢慢变成自己的生活。</view>
+  <view wx:if="{{loading}}" class="skeleton" />
+  <view wx:if="{{error}}" class="notice" bindtap="reload"
+    >{{error}} · 点击重试</view
+  >
+  <view wx:if="{{!loading}}" class="hero"
+    ><view
+      >{{info.profile.retirement.is_retired ? '退休生活已走过' :
+      '距离你的退休'}}</view
+    ><view class="big" wx:if="{{info.profile.retirement}}"
+      >{{info.profile.retirement.years}}<text style="font-size: 30rpx">
+        年 </text
+      >{{info.profile.retirement.months}}<text style="font-size: 30rpx">
+        个月</text
+      ></view
+    ><view wx:else="" class="big" style="font-size: 46rpx"
+      >你想过怎样的生活？</view
+    ><view class="row"
+      ><text class="muted"
+        >{{info.profile.retirement ? '预计 '+info.profile.retirement.year+'
+        年开启新旅程' : '完善资料，找到自己的时间锚点'}}</text
+      ><text class="link" bindtap="edit"
+        >{{info.profile.retirement ? '修改' : '开始规划'}} →</text
+      ></view
+    ><view class="mini muted" wx:if="{{info.profile.retirement.approximate}}"
+      >未填写出生月份，暂按1月估算</view
+    ></view
+  >
+  <view class="card" bindtap="blueprint"
+    ><view class="row"
+      ><text>📋 我的退休蓝图</text><text class="link">去看看 →</text></view
+    ><view class="progress"
+      ><view
+        class="progress-fill"
+        style="width:{{(info.complete || 0)*20}}%" /></view
+    ><view class="muted"
+      >{{info.complete || 0}}/5 个维度 · {{info.total || 0}} 条想法</view
+    ><view wx:if="{{info.latest}}">最近：{{info.latest.content}}</view></view
+  >
+  <view wx:if="{{info.annual}}" class="card"
+    ><view class="section">🎂 又过了一年</view
+    ><view
+      >过去一年新增 {{info.annual.added}} 条想法，收藏 {{info.annual.collected}}
+      篇生活分享。</view
+    ><button class="primary" bindtap="blueprint">去完善蓝图</button
+    ><view class="link" bindtap="dismissAnnual">知道了</view></view
+  >
+  <view class="row section"
+    ><text>今日生活灵感</text
+    ><text class="link" bindtap="discover">查看更多 →</text></view
+  ><post-card
+    wx:for="{{posts}}"
+    wx:key="id"
+    post="{{item}}"
+    bind:open="openPost"
+    bind:like="likePost"
+    bind:collect="collectPost"
+    bind:author="openAuthor"
+  /><view wx:if="{{!loading &amp;&amp; !posts.length}}" class="empty"
+    >🌱 最近还没有分享<text> </text>去发现，写下第一段生活。</view
+  ></view
+>

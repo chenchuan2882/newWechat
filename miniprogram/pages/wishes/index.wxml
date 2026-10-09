@@ -1,0 +1,83 @@
+<view class="page"
+  ><view class="eyebrow">WISH TOGETHER / 原来你也这样想</view
+  ><view class="row"
+    ><view class="title">愿望，是生活的种子</view
+    ><text class="link" bindtap="write">＋ 许个愿</text></view
+  ><view class="row" style="justify-content: flex-start"
+    ><view
+      class="pill {{sort==='hot'?'active':''}}"
+      data-key="sort"
+      data-value="hot"
+      bindtap="filter"
+      >热门</view
+    ><view
+      class="pill {{sort==='latest'?'active':''}}"
+      data-key="sort"
+      data-value="latest"
+      bindtap="filter"
+      >最新</view
+    ></view
+  ><scroll-view scroll-x="true" class="tabs"
+    ><view
+      class="pill {{!dimension?'active':''}}"
+      data-key="dimension"
+      data-value=""
+      bindtap="filter"
+      >全部维度</view
+    ><view
+      wx:for="{{dimensions}}"
+      wx:key="id"
+      class="pill {{dimension===item.id?'active':''}}"
+      data-key="dimension"
+      data-value="{{item.id}}"
+      bindtap="filter"
+      >{{item.icon}} {{item.name}}</view
+    ></scroll-view
+  ><view wx:for="{{items}}" wx:key="id" class="card"
+    ><view data-id="{{item.id}}" bindtap="people"
+      ><view style="font-size: 36rpx; color: #768f60">“</view
+      ><view class="body" style="font-size: 33rpx">{{item.content}}</view
+      ><view class="muted" style="margin-top: 25rpx"
+        >@{{item.author.nickname}} · {{item.dimensionName}}</view
+      ></view
+    ><view class="actions row"
+      ><view
+        class="pill {{item.liked?'active':''}}"
+        data-id="{{item.id}}"
+        bindtap="like"
+        >{{item.liked?'✓ 我也想':'＋1 我也想'}} · {{item.like_count}}</view
+      ><text class="muted">{{item.date}}</text></view
+    ></view
+  ><view wx:if="{{loading}}" class="skeleton" /><view
+    wx:if="{{error}}"
+    class="notice"
+    bindtap="load"
+    >{{error}} · 点击重试</view
+  ><view
+    wx:if="{{!loading &amp;&amp; !items.length &amp;&amp; !error}}"
+    class="empty"
+    >✨ 许愿墙还是空的<button class="secondary" bindtap="write">
+      写下你的退休愿望
+    </button></view
+  ><view wx:if="{{!hasMore &amp;&amp; items.length}}" class="empty"
+    >已经到底啦 ～</view
+  ></view
+><view wx:if="{{selected}}" class="overlay" bindtap="close"
+  ><view class="sheet" catchtap="noop"
+    ><view class="row section"
+      ><text>{{peopleCount}} 人也这样想</text
+      ><text bindtap="close">×</text></view
+    ><view class="body">{{selected.content}}</view
+    ><view class="row wrap" style="margin: 30rpx 0"
+      ><view wx:for="{{people}}" wx:key="id"
+        ><image
+          wx:if="{{item.avatar_url}}"
+          class="avatar"
+          src="{{item.avatar_url}}"
+        /><view class="mini">{{item.nickname}}</view></view
+      ></view
+    ><button class="primary" data-id="{{selected.id}}" bindtap="like">
+      {{selected.liked?'✓ 我也想':'＋1 我也想'}} {{selected.like_count}}</button
+    ><button class="secondary" bindtap="collect">加入我的蓝图</button></view
+  ></view
+>

@@ -1,0 +1,5 @@
+{
+  "navigationBarTitleText": "写下愿望",
+  "enablePullDownRefresh": false,
+  "usingComponents": { "post-card": "/components/post-card/index" }
+}

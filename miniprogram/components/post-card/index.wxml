@@ -1,0 +1,52 @@
+<view class="post">
+  <view class="row" bindtap="author"
+    ><view class="row"
+      ><image
+        wx:if="{{post.author.avatar_url}}"
+        class="avatar"
+        src="{{post.author.avatar_url}}"
+      /><view wx:else="" class="avatar placeholder">🌿</view
+      ><view
+        ><view>{{post.author.nickname || '规划生活的人'}}</view
+        ><view class="muted"
+          >{{post.author.city}} {{post.author.retirement.is_retired ? '退休生活'
+          : '规划中的生活'}}</view
+        ></view
+      ></view
+    ></view
+  >
+  <view bindtap="open"
+    ><view
+      wx:if="{{post.imageUrls.length}}"
+      class="images images-{{post.imageUrls.length}}"
+      ><image
+        wx:if="{{post.imageUrls.length===1}}"
+        src="{{post.imageUrls[0]}}"
+        mode="aspectFill" /><block wx:elif="{{post.imageUrls.length===2}}"
+        ><image src="{{post.imageUrls[0]}}" mode="aspectFill" /><image
+          src="{{post.imageUrls[1]}}"
+          mode="aspectFill" /></block
+      ><block wx:else=""
+        ><image
+          class="large"
+          src="{{post.imageUrls[0]}}"
+          mode="aspectFill" /><view class="image-stack"
+          ><image src="{{post.imageUrls[1]}}" mode="aspectFill" /><image
+            src="{{post.imageUrls[2]}}"
+            mode="aspectFill" /></view></block></view
+    ><view class="excerpt">{{post.content}}</view
+    ><view class="tags"
+      ><text wx:for="{{post.dimensionLabels}}" wx:key="*this">{{item}} · </text
+      ><text wx:for="{{post.custom_tags}}" wx:key="*this"
+        >#{{item}}
+      </text></view
+    ><view class="muted">{{post.expense_note}}</view></view
+  >
+  <view class="actions row"
+    ><view bindtap="like">{{post.liked ? '♥' : '♡'}} {{post.like_count}}</view
+    ><view bindtap="open">评论 {{post.comment_count}}</view
+    ><view bindtap="collect"
+      >{{post.collected_dimension ? '✓ 已加入' : '＋ 加入蓝图'}}</view
+    ></view
+  >
+</view>

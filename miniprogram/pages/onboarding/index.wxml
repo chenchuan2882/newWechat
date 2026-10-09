@@ -1,0 +1,110 @@
+<view class="page"
+  ><view wx:if="{{step===1}}"
+    ><view class="eyebrow">WELCOME / 凡事预则立</view
+    ><view style="font-size: 110rpx; margin: 100rpx 0 30rpx">🏡</view
+    ><view class="title">你正在规划<text> </text>人生最好的时光</view
+    ><view class="subtitle"
+      >退休，不是终点，是新的起点。<text
+      > </text>先认识你的向往，再安排未来的日子。</view
+    ><button class="primary" bindtap="begin">开始规划我的退休生活 →</button
+    ><button class="secondary" bindtap="skip">先看看，暂不登录</button></view
+  >
+  <view wx:if="{{step===2}}"
+    ><view class="eyebrow">ABOUT YOU / 认识未来的你</view
+    ><view class="title">先告诉我一点<text> </text>关于你的信息</view
+    ><view class="field"
+      ><label>头像（可选）</label
+      ><button
+        open-type="chooseAvatar"
+        bindchooseavatar="avatar"
+        class="secondary"
+      >
+        <image wx:if="{{avatar}}" src="{{avatar}}" class="avatar" /><text
+          wx:else=""
+          >选择头像</text
+        >
+      </button></view
+    ><view class="field"
+      ><label>昵称 · 2–16字</label
+      ><input
+        type="nickname"
+        maxlength="16"
+        value="{{nickname}}"
+        data-key="nickname"
+        bindinput="input"
+        placeholder="怎么称呼你？" /></view
+    ><view class="field"
+      ><label>出生年份</label
+      ><picker
+        range="{{years}}"
+        value="{{yearIndex}}"
+        data-key="yearIndex"
+        bindchange="pick"
+        ><view class="picker">{{years[yearIndex]}} 年</view></picker
+      ></view
+    ><view class="field"
+      ><label>出生月份（可选，用于月度倒计时与年度回顾）</label
+      ><picker
+        range="{{months}}"
+        value="{{monthIndex}}"
+        data-key="monthIndex"
+        bindchange="pick"
+        ><view class="picker">{{months[monthIndex]}}</view></picker
+      ></view
+    ><view class="field"
+      ><label>计划几岁退休？</label
+      ><picker
+        range="{{ages}}"
+        value="{{ageIndex}}"
+        data-key="ageIndex"
+        bindchange="pick"
+        ><view class="picker">{{ages[ageIndex]}} 岁</view></picker
+      ></view
+    ><view class="row field"
+      ><text>我已经退休了</text
+      ><switch
+        color="#285548"
+        checked="{{isRetired}}"
+        bindchange="retired" /></view
+    ><view class="field"
+      ><label>所在城市（可选）</label
+      ><picker mode="region" bindchange="city"
+        ><view class="picker">{{city || '选择省市'}}</view></picker
+      ></view
+    ><view class="field"
+      ><label>一句话简介（可选）</label
+      ><input
+        maxlength="30"
+        value="{{bio}}"
+        data-key="bio"
+        bindinput="input"
+        placeholder="分享你的生活态度" /></view
+    ><view class="muted" bindtap="privacy"
+      >保存即表示你已阅读隐私说明。蓝图仅对自己可见。</view
+    ><button
+      class="primary"
+      bindtap="save"
+      loading="{{saving}}"
+      disabled="{{saving}}"
+    >
+      {{editing ? '保存资料' : '微信登录并开启规划'}}
+    </button></view
+  >
+  <view wx:if="{{step===3}}"
+    ><view style="font-size: 90rpx; margin-top: 100rpx">🌱</view
+    ><view class="title">新篇章，值得期待</view
+    ><view class="hero"
+      ><view
+        >{{result.retirement.is_retired?'退休生活已走过':'距离你的退休还有'}}</view
+      ><view class="big"
+        >{{result.retirement.years}}<text style="font-size: 28rpx">年 </text
+        >{{result.retirement.months}}<text style="font-size: 28rpx"
+          >个月</text
+        ></view
+      ><view class="muted"
+        >{{result.retirement.year}} 年，人生的新旅程</view
+      ></view
+    ><view class="subtitle">先看看别人的生活，把喜欢的加进你的蓝图吧。</view
+    ><button class="primary" bindtap="discover">去发现生活灵感 →</button></view
+  ></view
+>

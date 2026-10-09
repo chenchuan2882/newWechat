@@ -1,0 +1,15 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: #1e352b70;
+  display: flex;
+  align-items: flex-end;
+  z-index: 20;
+}
+.sheet {
+  background: #fffefa;
+  border-radius: 34rpx 34rpx 0 0;
+  padding: 40rpx 32rpx 70rpx;
+  width: 100%;
+  box-sizing: border-box;
+}

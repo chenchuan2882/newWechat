@@ -1,0 +1,69 @@
+<view class="page"
+  ><view class="eyebrow">SHARE YOUR DAYS / 真实生活，给人灵感</view
+  ><view class="title">分享一段生活</view
+  ><view class="row wrap"
+    ><view wx:for="{{images}}" wx:key="preview"
+      ><image
+        class="thumb"
+        src="{{item.preview}}"
+        mode="aspectFill"
+        data-index="{{index}}"
+        bindtouchstart="startDrag"
+        bindtouchmove="drag"
+        bindtouchend="endDrag"
+      /><view class="row mini"
+        ><text data-index="{{index}}" bindtap="moveImage">前移</text
+        ><text class="danger" data-index="{{index}}" bindtap="removeImage"
+          >移除</text
+        ></view
+      ></view
+    ></view
+  ><button wx:if="{{images.length&lt;3}}" class="secondary" bindtap="choose">
+    ＋ 添加图片（最多3张）</button
+  ><view class="muted" wx:if="{{images.length>1}}">左右拖动图片可调整顺序</view
+  ><view class="field"
+    ><label>今天有什么值得分享？</label
+    ><textarea
+      maxlength="500"
+      value="{{content}}"
+      data-key="content"
+      bindinput="input"
+      placeholder="分享你的退休生活，或你正在准备的生活……"
+    /><view class="counter">{{content.length}}/500 · 至少10字</view></view
+  ><view class="field"
+    ><label>关联维度（必选，最多3个）</label
+    ><view
+      wx:for="{{dimensions}}"
+      wx:key="id"
+      class="pill {{item.selected?'active':''}}"
+      data-id="{{item.id}}"
+      bindtap="toggle"
+      >{{item.icon}} {{item.name}}</view
+    ></view
+  ><view class="field"
+    ><label>标签（可选，空格分隔，最多3个，每个8字）</label
+    ><input
+      maxlength="26"
+      value="{{customTags}}"
+      data-key="customTags"
+      bindinput="input"
+      placeholder="大理 院子" /></view
+  ><view class="field"
+    ><label>花费参考（可选）</label
+    ><input
+      maxlength="30"
+      value="{{expense}}"
+      data-key="expense"
+      bindinput="input"
+      placeholder="如：月花费约3500元" /></view
+  ><view class="muted"
+    >内容通过微信安全审核后公开展示。请勿填写联系方式等个人敏感信息。</view
+  ><button
+    class="primary"
+    bindtap="save"
+    loading="{{saving}}"
+    disabled="{{saving || content.length&lt;10}}"
+  >
+    {{saving?'审核并发布中…':'发布生活分享'}}
+  </button></view
+>

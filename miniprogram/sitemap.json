@@ -1,0 +1,7 @@
+{
+  "rules": [
+    { "action": "allow", "page": "pages/discover/index" },
+    { "action": "allow", "page": "pages/post/index" },
+    { "action": "disallow", "page": "*" }
+  ]
+}

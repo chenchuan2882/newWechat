@@ -1,0 +1,5 @@
+{
+  "navigationBarTitleText": "凡事预则立",
+  "enablePullDownRefresh": true,
+  "usingComponents": { "post-card": "/components/post-card/index" }
+}
