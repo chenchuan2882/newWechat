@@ -19,7 +19,7 @@
 | MYSQL_ADDRESS | 现有 MySQL 地址:端口，尚未由用户提供；如控制台已有配置则沿用 |
 | MYSQL_USERNAME | 数据库用户名，通过控制台配置 |
 | MYSQL_PASSWORD | 数据库密码，通过控制台配置 |
-| MYSQL_DATABASE | 默认 flask_demo，必须为已存在数据库 |
+| MYSQL_DATABASE | 沿用现有数据库（默认名称 flask_demo），必须为已存在数据库 |
 | SESSION_SECRET | 至少32字节随机值，所有实例保持一致；修改后已有登录失效 |
 | WECHAT_APPID | 默认 wx6e5527ee2c4beffa |
 | WECHAT_APPSECRET | 小程序后台的 AppSecret，微信登录和内容安全接口必需 |
@@ -28,7 +28,7 @@
 
 也可用 `DATABASE_URL` 设置完整数据库 URI，优先于 MYSQL 变量。生产日志不主动输出密码或微信会话密钥。
 
-容器端口保持80。启动执行 `flask init-db` 创建新 `retirement_` 表，保留原 `Counters` 表。新表使用 utf8mb4 支持中文与 emoji。需要创建表权限；建表失败会停止启动。对已存在新表的后续字段修改应使用迁移，而非依赖 create_all。
+容器端口保持80。启动执行 `flask init-db` 仅创建缺失的 `retirement_` 业务表，不删除已有数据。新表使用 utf8mb4 支持中文与 emoji。需要创建表权限；建表失败会停止启动。对已存在新表的后续字段修改应使用迁移，而非依赖 create_all。
 
 ## 鉴权与审核
 
@@ -84,9 +84,18 @@ python -m flask --app wxcloudrun dispatch-reminders
 ## 上线前实际验收
 
 1. 云托管控制台确认流水线关联该仓库 master，部署 Dockerfile 并配置上述变量。
-2. 确认建表成功和 `/api/health`；原 `/api/count` 可继续运行。
+2. 确认建表成功和 `/api/health`；旧 `/api/count` 应返回404。
 3. 开发者工具导入根目录，确认环境关联、服务访问权限、图片合法域名及服务调用权限。
 4. 用两个真实微信账号分别登录，检查昵称头像、资料保存、私有蓝图隔离、分享审核、收藏来源删除、评论及愿望额度。
 5. 配置模板及调度，真机授权并检查订阅消息实际投递。
 6. 完成隐私保护指引、主体/联系方式、服务类目、社区内容规范和微信审核要求；应用内说明不替代平台隐私配置。
 7. 真机检查长文、键盘遮挡、拖动图片、小屏/大字体、离线缓存与性能，前端单独上传审核。
+
+## 清理后重新部署
+
+旧计数器接口、欢迎页、辅助模块、run.py 和仅用于初始模板的 container.config.json 已删除。生产入口仍为 Dockerfile → entrypoint.sh → Gunicorn，端口80。数据库名称为兼容已有环境继续沿用，清理代码不执行删表。
+
+1. 在既有服务 flask-0zs5 的流水线中选择 newWechat/master 最新提交，重新构建并发布；构建目录为仓库根目录，Dockerfile 路径为 Dockerfile。
+2. 核对 MYSQL_ADDRESS、MYSQL_USERNAME、MYSQL_PASSWORD、MYSQL_DATABASE、SESSION_SECRET 和 WECHAT_APPSECRET；查看构建与启动日志，确认 init-db 成功。
+3. 发布后访问 /api/health，应返回包含 retirement-mvp-1 的 JSON；访问 /api/posts 应返回业务 JSON，/api/count 应返回404。
+4. GitHub Application checks 仅验证代码，不能证明云托管发布成功。小程序前端仍需独立上传。

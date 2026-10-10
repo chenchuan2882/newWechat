@@ -10,14 +10,14 @@ def create_app(overrides=None):
     if overrides:
         app.config.update(overrides)
     db.init_app(app)
-    from wxcloudrun import model, retirement_models
+    from wxcloudrun import retirement_models
     from wxcloudrun.retirement import api
 
     app.register_blueprint(api)
 
     @app.cli.command("init-db")
     def init_db():
-        """Create missing tables; does not drop existing counter data."""
+        """Create missing tables; does not drop existing data."""
         db.create_all()
         print("Database tables created.")
 
@@ -39,4 +39,3 @@ def create_app(overrides=None):
 
 
 app = create_app()
-from wxcloudrun import views

@@ -1,6 +1,6 @@
 # 凡事预则立 · 退休生活规划小程序
 
-基于用户提供的 [PRD v1](docs/PRD-v1.txt) 实现；本版本不包含 AI。原微信云托管 Flask 计数器服务保留，新功能位于 `/api`，原生小程序位于 `miniprogram/`。
+基于用户提供的 [PRD v1](docs/PRD-v1.txt) 实现；本版本不包含 AI。后端业务接口位于 `/api`，原生小程序位于 `miniprogram/`。
 
 ## 已实现
 
@@ -47,7 +47,7 @@ SQLite 用于本地开发与测试；生产使用现有 MySQL。真实微信登�
 
 ## 部署
 
-详见 [部署说明](docs/DEPLOYMENT.md)。容器启动会创建缺失表，不会删表或重建原计数器表。不要把密码、AppSecret、会话密钥或 `.env` 提交到 Git。
+详见 [部署说明](docs/DEPLOYMENT.md)。容器启动会创建缺失表，不会删除已有表或数据。不要把密码、AppSecret、会话密钥或 `.env` 提交到 Git。
 
 ## 检查
 

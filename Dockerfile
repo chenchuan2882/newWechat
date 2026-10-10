@@ -3,6 +3,7 @@ ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 TZ=Asia/Shanghai
 WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
-COPY . .
+COPY config.py entrypoint.sh ./
+COPY wxcloudrun/ ./wxcloudrun/
 EXPOSE 80
 CMD ["sh", "entrypoint.sh"]

@@ -492,3 +492,13 @@ def test_invalid_json_and_dimensions(client):
     )
     assert client.get("/api/posts?page=oops").status_code == 400
     assert profile(client, h, avatar_url=123).status_code == 400
+
+
+def test_legacy_demo_removed(app, client):
+    assert client.get("/api/health").json["data"]["status"] == "ok"
+    assert client.get("/").status_code == 404
+    assert client.get("/api/count").status_code == 404
+    assert client.post("/api/count", json={"action": "inc"}).status_code == 404
+    with app.app_context():
+        assert "Counters" not in db.metadata.tables
+        assert all(name.startswith("retirement_") for name in db.metadata.tables)
